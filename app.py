@@ -1,11 +1,25 @@
-from flask import Flask, render_template
+from flask import Flask
 
 app = Flask(__name__)
+ans = '0'
 
-@app.route('/')
-def index():
-    return render_template('index.html')
+# This will be read by the ESP32
+@app.route("/status")
+def status():
+    global ans
+    response = ans
+    ans = '0'  # Reset after reading
+    return response
 
+@app.route("/rotate/<int:n>")
+def rot(n):
+    global ans
+    ans = str(n)
+    return 'okay'
 
-if __name__ == '__main__':
-    app.run(debug=True)
+@app.route("/")
+def wlcome():
+    return "Hi! Flask server is running."
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000, debug=True)
