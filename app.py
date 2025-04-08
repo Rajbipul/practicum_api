@@ -17,11 +17,8 @@ def rot(n):
     ans = str(n)
     return 'okay'
 
-@app.route("/")
-def wlcome():
-    return 'Hii'
 
-@app.route("/web")
+@app.route("/")
 def web():
     return render_template('index.html')  # ✅ Corrected here
 
