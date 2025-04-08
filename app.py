@@ -23,20 +23,23 @@ def rot(n):
 def x():
     data = request.get_json()
 
-    # Mapping item keys to motor numbers
+    # Mapping item keys to labels
     item_map = {
-        'item1': 1,  # Cold Drink
-        'item2': 2,  # Chocolate Bar
-        'item3': 3   # Chips
+        'item1': 'A',  # Cold Drink
+        'item2': 'B',  # Chocolate Bar
+        'item3': 'C'   # Chips
     }
 
-    for item_key, motor_number in item_map.items():
+    parts = []
+    for item_key, label in item_map.items():
         quantity = data.get(item_key, 0)
-        for _ in range(quantity):
-            rot(motor_number)
+        parts.append(f"{label}:{quantity}")
 
-    print("✅ Rotation commands sent based on:", data)
-    return jsonify({"status": "received", "data": data})
+    rs = "_".join(parts)
+
+    rot(rs)
+    print("✅ Rotation command string:", ans)
+    return jsonify({"status": "received", "ans": ans})
 
 
 @app.route("/")
