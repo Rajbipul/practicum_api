@@ -13,7 +13,7 @@
 <body>
   <div class="container">
     <h2>Vending Machine</h2>
-    <script src="/static/js/quantity.js" defer></script>
+    <script src="/static/js/quantity.js?v=2" defer></script>
 
     <div class="product-row">
       <img src="/static/assets/cold-drink.jpg" alt="Pepsi Can 250 ml" class="product-image">
@@ -21,29 +21,29 @@
       <div class="product-price">Rs 35</div>
       <div class="product-quantity">
         <button class="quantity-button" onclick="changeQuantity(this, -1)">-</button>
-        <input type="number" class="quantity-input" value="0" min="0" data-price="35" readonly>
+        <input type="number" id="item1" class="quantity-input" value="0" min="0" data-price="35" readonly>
         <button class="quantity-button" onclick="changeQuantity(this, 1)">+</button>
       </div>
     </div>
-
+    
     <div class="product-row">
       <img src="/static/assets/snack-bar.jpg" alt="Snack Bar" class="product-image">
       <div class="product-name">Cadbury Bournville Dark Chocolate Bar</div>
       <div class="product-price">Rs 50</div>
       <div class="product-quantity">
         <button class="quantity-button" onclick="changeQuantity(this, -1)">-</button>
-        <input type="number" class="quantity-input" value="0" min="0" data-price="50" readonly>
+        <input type="number" id="item2" class="quantity-input" value="0" min="0" data-price="50" readonly>
         <button class="quantity-button" onclick="changeQuantity(this, 1)">+</button>
       </div>
     </div>
-
+    
     <div class="product-row">
       <img src="/static/assets/chips.jpg" alt="Chips" class="product-image">
       <div class="product-name">Lays Chips</div>
       <div class="product-price">Rs 20</div>
       <div class="product-quantity">
         <button class="quantity-button" onclick="changeQuantity(this, -1)">-</button>
-        <input type="number" class="quantity-input" value="0" min="0" data-price="20" readonly>
+        <input type="number" id="item3" class="quantity-input" value="0" min="0" data-price="20" readonly>
         <button class="quantity-button" onclick="changeQuantity(this, 1)">+</button>
       </div>
     </div>
@@ -59,7 +59,7 @@
       <h2>Order Summary</h2>
       <p><strong>Total Price:</strong> Rs <span id="total-price">0.00</span></p>
     </div>
-    <script src="/static/js/payment.js" defer></script>
+    <script src="/static/js/payment.js?v=2" defer></script>
 
     <button class="pay-button" onclick="goToPayment()">Proceed to Payment</button>
   </div>

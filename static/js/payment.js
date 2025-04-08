@@ -1,22 +1,10 @@
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyA8ZDquSmJKBE_xTXRPHNfTgmAc14Z_NJ0",
-  authDomain: "vending-machine-97f0e.firebaseapp.com",
-  databaseURL: "https://vending-machine-97f0e-default-rtdb.firebaseio.com",
-  projectId: "vending-machine-97f0e",
-  storageBucket: "vending-machine-97f0e.firebasestorage.app",
-  messagingSenderId: "109546646548",
-  appId: "1:109546646548:web:4b084abba2a1a879c80b01",
-  measurementId: "G-KF6NYKW3M6"
-};
-
-firebase.initializeApp(firebaseConfig);
-const database = firebase.database();
-
 window.goToPayment = function () {
     const name = document.getElementById("name").value.trim();
     const phone = document.getElementById("phone").value.trim();
     const totalPrice = parseFloat(document.getElementById('total-price').textContent) * 100;
+    const item1 = parseFloat(document.getElementById('item1').value);
+    const item2 = parseFloat(document.getElementById('item2').value);
+    const item3 = parseFloat(document.getElementById('item3').value);
 
     const selectedItems = [];
     document.querySelectorAll('.product-checkbox:checked').forEach(checkbox => {
@@ -34,7 +22,7 @@ window.goToPayment = function () {
     }
 
     const options = {
-        key: "rzp_test_p7oleGr9Xev6y9",
+        key: "rzp_test_p7oleGr9Xev6y9", // Razorpay test/live key
         amount: totalPrice,
         currency: "INR",
         name: "Vending Machine",
@@ -47,36 +35,40 @@ window.goToPayment = function () {
             color: "#007bff",
         },
         handler: function (response) {
-            selectedItems.forEach(itemId => {
-    const quantity = 1; // or get quantity dynamically
+            const data = {
+                name: name,
+                phone: phone,
+                item1:item1,
+                item2:item2,
+                item3:item3, 
+                quantity: 1,
+                payment_id: response.razorpay_payment_id,
+                timestamp: Date.now()
+            };
 
-    const data = {
-        item: itemId,
-        quantity: quantity,
-        name: name,
-        phone: phone,
-        payment_id: response.razorpay_payment_id,
-        timestamp: Date.now()
-    };
-
-    console.log("Sending data to Firebase:", data); // ✅ Log before sending
-
-    fetch("https://vending-machine-97f0e-default-rtdb.firebaseio.com/vend.json", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data) // ✅ Always stringify
-    })
-    .then(res => {
-        if (!res.ok) throw new Error("Failed to post to Firebase");
-        return res.json();
-    })
-    .then(result => console.log("✅ Firebase success:", result))
-    .catch(err => console.error("❌ Firebase error:", err));
-});
-
-            alert(`✅ Payment successful! Transaction ID: ${response.razorpay_payment_id}`);
+            console.log("✅ Sending to Flask /x:", data);
+            // alert(`✅ sending data`); 
+            fetch("/x", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            })
+            .then(res => {
+                
+                if (!res.ok) throw new Error("Failed to send to Flask");
+                return res.json();
+            })
+            .then(result => {
+                alert(`✅ response`,result);
+                console.log("✅ Flask response:", result);
+                alert(`✅ Payment successful! Transaction ID: ${response.razorpay_payment_id}`);
+            })
+            .catch(err => {
+                console.error("❌ Error sending data to Flask:", err);
+                alert(`❌ Payment done, but failed to send data to server.\nTransaction ID: ${response.razorpay_payment_id}`);
+            });
         },
         modal: {
             ondismiss: function () {
