@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 
 app = Flask(__name__)
 ans = '0'
@@ -19,7 +19,11 @@ def rot(n):
 
 @app.route("/")
 def wlcome():
-    return "Hi! Flask server is running."
+    return 'Hii'
+
+@app.route("/web")
+def web():
+    return render_template('index.html')  # ✅ Corrected here
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    app.run(host="0.0.0.0", port=8080, debug=True)

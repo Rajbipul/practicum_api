@@ -1,36 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ChatShare</title>
-    <link rel="icon" href="/static/images/logo.ico" type="image/x-icon">
-    <link rel="stylesheet" href="/static/css/styles.css">
-    <link href="https://fonts.googleapis.com/css?family=Exo:400,700" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vending Machine</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
 </head>
-
 <body>
-    <div class="area">
-        <div class="circles">
-            <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-        </div>
-    </div>
-    <div class="context">
-        <h1>Coding Craft YT</h1>
-        <h3>Taking Your Flask Project Beyond Localhost!</h3>
-    </div>
-</body>
+  <div class="container">
+    <h2>Vending Machine</h2>
+    <script src="/static/js/quantity.js" defer></script>
 
+    <div class="product-row">
+      <img src="/static/assets/cold-drink.jpg" alt="Pepsi Can 250 ml" class="product-image">
+      <div class="product-name">Cold Drink</div>
+      <div class="product-price">Rs 35</div>
+      <div class="product-quantity">
+        <button class="quantity-button" onclick="changeQuantity(this, -1)">-</button>
+        <input type="number" class="quantity-input" value="0" min="0" data-price="35" readonly>
+        <button class="quantity-button" onclick="changeQuantity(this, 1)">+</button>
+      </div>
+    </div>
+
+    <div class="product-row">
+      <img src="/static/assets/snack-bar.jpg" alt="Snack Bar" class="product-image">
+      <div class="product-name">Cadbury Bournville Dark Chocolate Bar</div>
+      <div class="product-price">Rs 50</div>
+      <div class="product-quantity">
+        <button class="quantity-button" onclick="changeQuantity(this, -1)">-</button>
+        <input type="number" class="quantity-input" value="0" min="0" data-price="50" readonly>
+        <button class="quantity-button" onclick="changeQuantity(this, 1)">+</button>
+      </div>
+    </div>
+
+    <div class="product-row">
+      <img src="/static/assets/chips.jpg" alt="Chips" class="product-image">
+      <div class="product-name">Lays Chips</div>
+      <div class="product-price">Rs 20</div>
+      <div class="product-quantity">
+        <button class="quantity-button" onclick="changeQuantity(this, -1)">-</button>
+        <input type="number" class="quantity-input" value="0" min="0" data-price="20" readonly>
+        <button class="quantity-button" onclick="changeQuantity(this, 1)">+</button>
+      </div>
+    </div>
+
+    <div class="user-info">
+      <label for="name">Your Name</label>
+      <input type="text" id="name" placeholder="Enter your name" required>
+      <label for="phone">Mobile Number</label>
+      <input type="text" id="phone" placeholder="Enter your mobile number" required>
+    </div>
+
+    <div>
+      <h2>Order Summary</h2>
+      <p><strong>Total Price:</strong> Rs <span id="total-price">0.00</span></p>
+    </div>
+    <script src="/static/js/payment.js" defer></script>
+
+    <button class="pay-button" onclick="goToPayment()">Proceed to Payment</button>
+  </div>
+</body>
 </html>
