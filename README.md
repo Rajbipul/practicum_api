@@ -1,17 +1,9 @@
-# My Awesome Flask Project
-
-## A step-by-step tutorial for deploying Flask apps to the live web using Vercel.
-
-### Deployed Link: [Live Demo](https://flask-app-jade.vercel.app/)
-
-### Project Walkthrough: [YouTube Tutorial](https://youtu.be/miQmOlPF_Gs)
-
-### Vercel: [Learn More About Vercel](https://vercel.com)
+# IOT based Automatic vending machine
 
 ### Technologies Used:
 - Flask
 - Python 3.9
-- Any additional libraries you used
+- ESP32 microcontroler
 
 ### Folder Structure (Highlighted):
 ```
